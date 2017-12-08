@@ -4,8 +4,8 @@ Deploying system services and docker containers using Ansible on Ubuntu 16.04
 ## List of actions
 Deployment procedure runs following procedures:
 - Update Ubuntu server
-- Installs and configures DNS with specific zone
 - Installs and configures firewall on server
+- Installs and configures DNS with specific zone
 - Installs Docker and deploys image containing PHP application
 
 ## Disclaimer

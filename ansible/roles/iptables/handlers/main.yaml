@@ -1,0 +1,4 @@
+---
+
+- name: save iptables config
+  shell: invoke-rc.d netfilter-persistent save
