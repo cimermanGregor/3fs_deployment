@@ -8,14 +8,14 @@ Deployment procedure runs following procedures:
 - Installs and configures firewall on server
 - Installs Docker and deploys image containing PHP application
 
-## Disclamer
+## Disclaimer
 Work in progress.
 
 ## Prerequisites 
 Ubuntu server 16.04 for running services, Python2.7, PIP and git installed. The rest is installed by Ansible.
 
 ## Configuring parameters
-Configurig services to fit in your environment you have to configure following variables
+Configuring services to fit in your environment you have to configure following variables
 - iptables_ssh_networks: networks from which you allow SSH access to hosts
 - iptables_trusted_networks: networks from which you allow any traffic
 - iptables_public_ports: publicly available ports
