@@ -3,10 +3,13 @@ Deploying system services and docker containers using Ansible on Ubuntu 16.04
 
 ## List of actions
 Deployment procedure runs following procedures:
-- Updated Ubuntu server
+- Update Ubuntu server
 - Installs and configures DNS with specific zone
 - Installs and configures firewall on server
 - Installs Docker and deploys image containing PHP application
+
+## Disclamer
+Work in progress.
 
 ## Prerequisites 
 Ubuntu server 16.04 for running services, Python2.7, PIP and git installed. The rest is installed by Ansible.
@@ -29,9 +32,10 @@ Run the Ansible playbook to configure our host
 ```shell
 # ansible-playbook -i production site.yaml
 ```
-If you are running playbook on the machine you would like to provision use localhost inventory.
+If you are running playbook on the host you would like to provision use localhost inventory.
 ```shell
 # ansible-playbook -i localhost site.yaml
 ```
 
 ## End result
+TBD
