@@ -1,2 +1,3 @@
 ansible/.venv
 *.retry
+README.html

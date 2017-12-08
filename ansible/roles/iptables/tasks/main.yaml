@@ -5,6 +5,12 @@
     name: iptables
     state: present
 
+- name: Disable Ubuntu UFW
+  import_tasks: disable_ufw.yaml
+  when:
+    - ansible_os_family == "Debian"
+
+
 - name: Install iptables-persistent
   apt:
     name: iptables-persistent
@@ -13,37 +19,32 @@
 - name: Allow established connections on INPUT chain 
   iptables:
     chain: INPUT
-    state: ESTABLISHED
+    ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
 
-- name: Allow access from public network 
+- name: Allow access from trusted network 
   iptables:
     chain: INPUT
-    source: 181.71.53.0/24
+    source: "{{ item }}"
     jump: ACCEPT
+  with_items: "{{ iptables_trusted_networks }}"
 
-- name: Allow access from home
+- name: Allow SSH access from network
   iptables:
     chain: INPUT
-    source: 181.71.54.22
+    source: "{{ item }}"
     destination_port: 22
     protocol: tcp
     jump: ACCEPT
+  with_items: "{{ iptables_ssh_networks }}"
 
-- name: Allow access from home2 
+- name: Allow access for public service/port
   iptables:
     chain: INPUT
-    source: 181.71.54.33
-    destination_port: 22
+    destination_port: "{{ item }}"
     protocol: tcp
     jump: ACCEPT
-
-- name: Allow access for service on port tcp/43210
-  iptables:
-    chain: INPUT
-    destination_port: 43210
-    protocol: tcp
-    jump: ACCEPT
+  with_items: "{{ iptables_public_ports }}"
 
 - name: Set policy for INPUT chain
   iptables:
@@ -55,12 +56,7 @@
     chain: FORWARD
     policy: DROP
 
-- name: Allow access from host
-  iptables:
-    chain: OUTPUT
-    jump: ACCEPT
-
 - name: Set policy for OUTPUT chain
   iptables:
     chain: OUTPUT
-    policy: DROP
+    policy: ACCEPT
