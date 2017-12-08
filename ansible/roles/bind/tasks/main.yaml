@@ -1,0 +1,29 @@
+---
+
+- name: Install Bind9
+  apt:
+    name: bind9
+
+- name: Ensure forwarders are set and Bind listens on interfaces
+  template:
+    src: bind_named.conf.options.j2
+    dest: "{{ bind_home }}/named.conf.options"
+  notify: bind restart
+
+- name: Configure local DNS zone
+  template:
+    src: bind_conf.j2
+    dest: "{{ bind_home }}/named.conf.{{ bind_zone }}"
+  notify: bind restart
+  
+- name: Include local zone file
+  template:
+    src: zonefile.j2
+    dest: "{{ bind_home }}/db.{{ bind_zone }}"
+    validate: "named-checkzone {{ bind_zone }} %s"
+  notify: bind restart
+
+- name: Ensure import of zone in configuration
+  lineinfile:
+    path: "{{ bind_home }}/named.conf"
+    line: "include \"{{ bind_home }}/named.conf.{{ bind_zone }}\";"

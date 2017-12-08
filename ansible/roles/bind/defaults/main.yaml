@@ -1,0 +1,18 @@
+---
+
+bind_zone: example.com
+bind_home: /etc/bind
+bind_records:
+  - name: test
+    type: CNAME
+    record: my.example2.com.
+  - name: test2
+    type: A
+    record: 8.8.8.8
+  - name: test2
+    type: AAAA
+    record: fe08::1
+bind_forwarders:
+  - 193.2.1.66
+  - 193.2.1.72
+

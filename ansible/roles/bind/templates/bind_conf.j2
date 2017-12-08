@@ -1,0 +1,7 @@
+// {{ ansible_managed }}
+// Bind configuration file for zone
+
+zone "{{ bind_zone }}" {
+  type master;
+  file "{{ bind_home }}/db.{{ bind_zone }}";
+};
