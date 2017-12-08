@@ -1,0 +1,66 @@
+---
+
+- name: Install iptables
+  apt:
+    name: iptables
+    state: present
+
+- name: Install iptables-persistent
+  apt:
+    name: iptables-persistent
+    state: present
+
+- name: Allow established connections on INPUT chain 
+  iptables:
+    chain: INPUT
+    state: ESTABLISHED
+    jump: ACCEPT
+
+- name: Allow access from public network 
+  iptables:
+    chain: INPUT
+    source: 181.71.53.0/24
+    jump: ACCEPT
+
+- name: Allow access from home
+  iptables:
+    chain: INPUT
+    source: 181.71.54.22
+    destination_port: 22
+    protocol: tcp
+    jump: ACCEPT
+
+- name: Allow access from home2 
+  iptables:
+    chain: INPUT
+    source: 181.71.54.33
+    destination_port: 22
+    protocol: tcp
+    jump: ACCEPT
+
+- name: Allow access for service on port tcp/43210
+  iptables:
+    chain: INPUT
+    destination_port: 43210
+    protocol: tcp
+    jump: ACCEPT
+
+- name: Set policy for INPUT chain
+  iptables:
+    chain: INPUT
+    policy: DROP
+
+- name: Set policy for FORWARD chain
+  iptables:
+    chain: FORWARD
+    policy: DROP
+
+- name: Allow access from host
+  iptables:
+    chain: OUTPUT
+    jump: ACCEPT
+
+- name: Set policy for OUTPUT chain
+  iptables:
+    chain: OUTPUT
+    policy: DROP
