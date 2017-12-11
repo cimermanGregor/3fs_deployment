@@ -22,19 +22,27 @@ Configuring services to fit in your environment you have to configure following 
 ## Deployment procedure
 Make sure the repository is located on host and change directory to it. Next step is to use ansible playbooks to do all the heavy lifting. We have to setup the environment.
 ```shell
-# cd ansible
-# virtualenv .venv
-# source .venv/bin/activate
-# pip install -r requirements.txt
+cd ansible
+virtualenv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 Run the Ansible playbook to configure our host
 ```shell
-# ansible-playbook -i production site.yaml
+ansible-playbook -i production site.yaml
 ```
 For running playbook on the local host use localhost inventory
 ```shell
-# ansible-playbook -i localhost site.yaml
+ansible-playbook -i localhost site.yaml
 ```
 
 ## End result
-TBD
+To deploy simple PHP application use project [Simple PHP Application](https://github.com/cimermanGregor/simple_php_application.git) using `docker-compose` command
+```shell
+git clone https://github.com/cimermanGregor/simple_php_application.git
+cd simple_php_application
+mv docker-compose-dockerhub.yaml docker-compose.yaml
+docker-compose up -d
+```
+
+![Screenshot of Simple PHP Application](https://user-images.githubusercontent.com/735375/33812731-cd21d536-de1f-11e7-8df5-50b3102e3ef1.png)

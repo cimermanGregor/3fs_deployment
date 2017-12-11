@@ -1,0 +1,23 @@
+---
+
+- name: Install docker
+  apt:
+    name: docker.io
+
+- name: Install docker-compose
+  apt:
+    name: docker-compose
+
+- name: Start docker 
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Install python pip
+  apt:
+    name: python-pip
+
+- name: Install docker python library
+  pip:
+    name: docker-py

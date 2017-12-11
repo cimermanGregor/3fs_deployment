@@ -5,3 +5,4 @@
     - common
     - iptables
     - bind
+    - docker
